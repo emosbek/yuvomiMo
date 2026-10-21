@@ -4,6 +4,9 @@ node_modules/
 # External/customized modules
 modules/*
 !modules/.gitkeep
+# The Homey module is part of this checkout. Other hand-copied modules stay ignored.
+!modules/homey/
+!modules/homey/**
 
 # Environment variables (NEVER commit)
 .env

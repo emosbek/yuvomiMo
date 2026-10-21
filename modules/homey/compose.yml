@@ -1,0 +1,59 @@
+# Yuvomi plus the Homey gateway, for a machine on the same network as Homey.
+# Paths are relative to this file. The browser uses port 3000 on the host.
+# Yuvomi itself stays on 127.0.0.1:3001.
+
+name: yuvomi
+
+services:
+  yuvomi:
+    image: ghcr.io/ulsklyc/yuvomi:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3000"
+    env_file:
+      - ../../.env
+    environment:
+      NODE_ENV: production
+      DB_PATH: /data/yuvomi.db
+      BACKUP_DIR: /backups
+      MODULES_DIR: /app/modules
+      SESSION_SECURE: "false"
+      TRUST_PROXY: loopback
+    volumes:
+      - ../../data:/data
+      - ../../backups:/backups
+      - ../../modules:/app/modules
+      - ../../documents:/documents
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/health', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  homey:
+    image: node:22-alpine
+    restart: unless-stopped
+    network_mode: host
+    depends_on:
+      yuvomi:
+        condition: service_healthy
+    environment:
+      HOMEY_GATEWAY_PORT: "3000"
+      HOMEY_BIND: "0.0.0.0"
+      YUVOMI_UPSTREAM: http://127.0.0.1:3001
+      YUVOMI_INTERNAL_URL: http://127.0.0.1:3001
+      HOMEY_DATA_DIR: /opt/yuvomi/data/homey
+    volumes:
+      - ../..:/opt/yuvomi:ro
+      - ../../data/homey:/opt/yuvomi/data/homey
+    working_dir: /opt/yuvomi
+    command: ["node", "modules/homey/gateway.js"]
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node --import dotenv/config server/index.js",
     "dev": "node --import dotenv/config --watch server/index.js",
+    "dev:homey": "node modules/homey/dev-local.js",
     "setup": "node --import dotenv/config setup.js",
     "coverage": "rm -rf coverage/v8 && mkdir -p coverage/v8 && NODE_V8_COVERAGE=coverage/v8 npm test > coverage/test.log 2>&1; node test/coverage-report.mjs coverage/v8 --prefix server/ --json coverage/report.json",
     "test-parallel": "node scripts/run-tests-parallel.mjs",

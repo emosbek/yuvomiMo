@@ -1,0 +1,36 @@
+{
+  "manifestVersion": 1,
+  "id": "homey",
+  "name": "Homey",
+  "version": "1.0.0",
+  "description": "Pin Homey devices, flows and webhooks as buttons for the household.",
+  "entry": "index.js",
+  "style": "style.css",
+  "settings": {
+    "entry": "settings.js",
+    "sections": ["household"],
+    "labelKey": "settings.title"
+  },
+  "icon": "house",
+  "accent": "#0B6E99",
+  "menu": {
+    "show": true,
+    "label": "Homey",
+    "labelKey": "menu",
+    "icon": "house",
+    "order": 80
+  },
+  "page": {
+    "composition": "dashboard",
+    "width": "wide",
+    "navigation": "standard",
+    "responsive": "standard"
+  },
+  "i18n": { "defaultLocale": "nb" },
+  "capabilities": {
+    "permissions": {
+      "module": { "label": "Homey", "labelKey": "module", "icon": "house" }
+    },
+    "api": { "prefix": "/api/extensions/homey" }
+  }
+}

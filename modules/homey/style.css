@@ -1,0 +1,117 @@
+.homey-heading {
+  margin: 0 0 var(--space-3);
+}
+
+.homey-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: var(--space-3);
+}
+
+.homey-pin-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.homey-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  width: 100%;
+  min-height: 6.5rem;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.homey-pin:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.homey-pin:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.homey-pin--on {
+  background-color: color-mix(in srgb, var(--active-module-accent, var(--color-accent)) 18%, var(--color-surface));
+}
+
+.homey-pin__label {
+  font-weight: var(--font-weight-medium);
+}
+
+.homey-pin__detail,
+.homey-pin__value {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.homey-actions,
+.homey-webhook,
+.homey-flow,
+.homey-caps li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.homey-catalog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.homey-caps {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.homey-zone {
+  margin: var(--space-4) 0 var(--space-2);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.homey-heading + .homey-zone {
+  margin-top: 0;
+}
+
+.homey-device + .homey-device {
+  margin-top: var(--space-3);
+}
+
+.homey-device h3,
+.homey-pin__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.homey-device h3 svg,
+.homey-pin__title svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+}
+
+.homey-range {
+  flex: 1 1 8rem;
+  min-width: 8rem;
+  accent-color: var(--active-module-accent, var(--color-accent));
+}
+
+#homey-filter,
+.homey-ring .form-input {
+  flex: 1 1 12rem;
+}
